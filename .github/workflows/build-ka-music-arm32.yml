@@ -58,9 +58,16 @@ jobs:
               raise SystemExit("Expected commented Kotlin Android plugin")
           s = s.replace('//id("kotlin-android")', 'id("org.jetbrains.kotlin.android")')
           p.write_text(s)
+          pub = Path("pubspec.yaml")
+          ps = pub.read_text()
+          if 'permission_handler: ^13.0.1' not in ps:
+              raise SystemExit("Expected permission_handler ^13.0.1")
+          ps = ps.replace('permission_handler: ^13.0.1', 'permission_handler: ^12.0.3')
+          pub.write_text(ps)
           print("Patched ABI filters:", s.count('abiFilters.add("armeabi-v7a")'))
           print("Patched compileSdk to 36")
           print("Enabled Kotlin Android plugin")
+          print("Downgraded permission_handler to 12.0.3 for build compatibility")
           PY
 
       - name: Resolve dependencies
