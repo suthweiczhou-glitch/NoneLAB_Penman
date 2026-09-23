@@ -75,8 +75,8 @@ jobs:
         shell: bash
         working-directory: ka-music
         run: |
-          flutter build apk --release --target-platform android-arm --split-per-abi
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk ../kgmusic_v2.6.0_mi3_arm32.apk
+          flutter build apk --release --target-platform android-arm
+          cp build/app/outputs/flutter-apk/app-release.apk ../kgmusic_v2.6.0_mi3_arm32.apk
 
       - name: Verify APK contains ARM32 native libraries
         shell: bash
