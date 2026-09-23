@@ -54,9 +54,13 @@ jobs:
           if 'compileSdk = 37' not in s:
               raise SystemExit("Expected compileSdk = 37")
           s = s.replace('compileSdk = 37', 'compileSdk = 36')
+          if '//id("kotlin-android")' not in s:
+              raise SystemExit("Expected commented Kotlin Android plugin")
+          s = s.replace('//id("kotlin-android")', 'id("org.jetbrains.kotlin.android")')
           p.write_text(s)
           print("Patched ABI filters:", s.count('abiFilters.add("armeabi-v7a")'))
           print("Patched compileSdk to 36")
+          print("Enabled Kotlin Android plugin")
           PY
 
       - name: Resolve dependencies
